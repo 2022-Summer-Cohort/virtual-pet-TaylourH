@@ -20,6 +20,16 @@ public class Dog {
         this.needToPotty = needToPotty;
         this.needsBath = needsBath;
     }
+    public Dog(String name, String furColor, String breed){
+        this.name = name;
+        this.furColor = furColor;
+        this.breed = breed;
+        this.hungerLevel = 100;
+        this.thirstLevel = 100;
+        this.boredomLevel = 100;
+        this.needToPotty = 100;
+        this.needsBath = 100;
+    }
 
     public String getName() {
         return name;
@@ -51,12 +61,12 @@ public class Dog {
         return needsBath;
     }
     public void dogIntro() {
-        System.out.println("Woof Woof! My name is " + name + " and I have " + furColor + " fur. I am a " + breed + ".");
+        System.out.println("Woof Woof! My name is " + name + ". I have " + furColor + " fur. I'm a " + breed + ".");
     }
     public void dogCurrentStats() {
-        System.out.println("Currently, my HUNGER is at " + hungerLevel + ", my THRIST is at " + thirstLevel +
-                ", my BOREDOM is at " + boredomLevel + ", my NEED TO POTTY is at " + needToPotty +
-                " and my NEED FOR A BATH is at " + needsBath + ".");
+        System.out.println(name + ": Hunger: (" + hungerLevel + ") Thirst: (" + thirstLevel +
+                ") Boredom: (" + boredomLevel + ") Need to Potty: (" + needToPotty +
+                ") Hygiene: (" + needsBath + ")");
     }
     public void feed() {
         hungerLevel = Math.min(100,hungerLevel+5);
@@ -87,20 +97,25 @@ public class Dog {
 //    public void ignore() {
 //        happiness = Math.max(0,happiness-25);
 //    }
-    public void tick() {
-        hungerLevel -= 5;
-        thirstLevel -= 5;
-        boredomLevel -= 5;
-        needToPotty -= 5;
-        needsBath -=5;
+    public void statDepleteTick() {
+        hungerLevel -= 3;
+        thirstLevel -= 3;
+        boredomLevel -= 3;
+        needToPotty -= 3;
+        needsBath -=3;
+    }
+    public void statPetHandlesOwnNeedsTick() {
+        hungerLevel += 1;
+        thirstLevel += 1;
+        boredomLevel += 1;
+        needToPotty += 1;
+        needsBath +=1;
+    }
+
+    public boolean isAlive() {
+        if(hungerLevel==0||thirstLevel==0||boredomLevel==0){
+            return false;
+        }
+        return true;
     }
 }
-    /* Establish HEALTH (total 500) and HAPPINESS (total 500) overall stats that are affected by hungerLvl, thirstLvl,
-    boredomLvl, needToPotty, & needsBath
-    Health = 0; pet dead Happiness = as it decreases pet gets difficult
-    run these stats through a loop?
-    hunger, thirst, decreases health by 1 every 1 minute and happiness by 1 every 5 minutes
-    boredom, potty, bath decreases happiness by 1 every 5 minutes and health every 10 minutes
-    Stats increase by user input (number 1-9) [1. feed, 2. give water, 3. play, 4. walk, 5. let into backyard,
-    6. give bath, 7. treat, 8. yell at/scold, 9. ignore]
-    */

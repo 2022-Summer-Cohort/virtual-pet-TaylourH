@@ -5,58 +5,66 @@ import java.util.Scanner;
 public class VirtualPetApplication {
 
     public static void main(String[] args) {
-        //Interact with a VirtualPet object in this method
-       VirtualPetApplication myApp = new VirtualPetApplication();
+        VirtualPetApplication myApp = new VirtualPetApplication();
         myApp.gameLoop();
     }
 
-    public int gameLoop(){
-        Dog dog1 = new Dog("Kensington","white","Bull Boxer",100,100,100,100,100);
-        Scanner input = new Scanner(System.in);
-        int keyPress = 0;
-        dog1.dogIntro();
-        while (true){
-            dog1.dogCurrentStats();
-            dog1.tick();
-            System.out.println("Press #1 to feed, press #2 to give water, #3 to play, #4 to walk, #5 to train," +
-                    " press 6 to give bath, press #7 to treat, press #8 to scold, #9 ignore, press #10 to quit");
-            keyPress = input.nextInt();
+    public void gameLoop() {
+        Dog dog1 = new Dog("Kensington", "White", "Bull Boxer");
+        Dog dog2 = new Dog("Iroh", "Brown","Shiba Inu");
+        Dog dog3 = new Dog("Pepper","Black","Mutt");
+        Dog dog4 = new Dog("Blue","Blue","Cartoon");
 
-        switch (keyPress) {
-            case 1:
-                dog1.feed();
+        Scanner input = new Scanner(System.in);
+
+        VirtualPetShelter myShelter = new VirtualPetShelter();
+
+        myShelter.addPet(dog1);
+        myShelter.addPet(dog2);
+        myShelter.addPet(dog3);
+        myShelter.addPet(dog4);
+
+        int keyPress = 0;
+        myShelter.allDogIntros();
+        while (myShelter.allPetsAlive()) {
+            myShelter.showAllPetStats();
+            myShelter.allPetsStatDepleteTick();
+            myShelter.statsAllPetHandlesOwnNeedsTick();
+            System.out.println("Press #1 to FEED all, press #2 to GIVE WATER to all, #3 to PLAY with all, #4 to WALK, #5 to GIVE BATH to all, #6 to ADMIT a new pet, #7 to ADOPT a pet from the shelter");
+            keyPress = input.nextInt();
+            input.nextLine();
+
+            switch (keyPress) {
+                case 1:
+                    myShelter.feedAll();
+                    break;
+                case 2:
+                    myShelter.giveWaterToAll();
+                    break;
+                case 3:
+                    myShelter.playWithAll();
+                    break;
+                case 4:
+                    myShelter.walkAll();
+                    break;
+                case 5:
+                    myShelter.batheAll();
+                    break;
+                case 6:
+                    System.out.println("Please give the dog a name.");
+                    String name = input.nextLine();
+                    System.out.println("Please specify the dog's fur color.");
+                    String furColor = input.nextLine();
+                    System.out.println("Please provide the dog's breed.");
+                    String breed = input.nextLine();
+                    myShelter.addPet(new Dog(name, furColor, breed));
+                    break;
+            case 7:
+                System.out.println("Please write the name of the dog that you want to adopt.");
+                String adoptName = input.nextLine();
+                myShelter.adoptPet(adoptName);
                 break;
-            case 2:
-                dog1.giveWater();
-                break;
-            case 3:
-                dog1.play();
-                break;
-            case 4:
-                dog1.walk();
-                break;
-//            case 5:
-//                dog1.train();
-//                break;
-            case 6:
-                dog1.giveBath();
-                break;
-//            case 7:
-//                dog1.treat();
-//                break;
-//            case 8:
-//                dog1.scold();
-//                break;
-//            case 9:
-//                dog1.ignore();
-//                break;
-//            case 10:
-//
-//                break;
-            default:
-                System.out.println("Goodbye!");
-        }
-//            dog1.tick();
+            }
         }
     }
 
