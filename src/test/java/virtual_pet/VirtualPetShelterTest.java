@@ -2,36 +2,25 @@ package virtual_pet;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VirtualPetShelterTest {
-//    @Test
-//    public void shouldAddNewPetToShelter() {
-//        VirtualPetShelter underTest = new VirtualPetShelter();
-//        ArrayList<Dog> shelter;
-//        underTest.addPet(new Dog("Davis","Grey","Greyhound"));
-//        String Davis;
-//        assertEquals("Davis", underTest.findDogByName(Davis));
-//    }
-
     @Test
-    public void shouldFeedAllDogs() {
+    public void shouldAdmitNewPetToShelter() {
         VirtualPetShelter underTest = new VirtualPetShelter();
-        underTest.feedAll();
-        assertEquals(5, 5);
+        underTest.admitPet(new OrganicDog("Davis",4,"Grey","Greyhound"));
+        assertEquals(5,underTest.shelter.size());
     }
     @Test
-    public void shouldGiveWaterToAllDogs() {
+    public void shouldFindPetByNameFromShelter() {
         VirtualPetShelter underTest = new VirtualPetShelter();
-        underTest.giveWaterToAll();
-        assertEquals(5, 5);
+        underTest.findPetByName("gizmo");
+        assertEquals("Gizmo",underTest.shelter.get(1).getName());
     }
     @Test
-    public void shouldPlayWithAllDogs() {
+    public void shouldAdoptPetFromShelter() {
         VirtualPetShelter underTest = new VirtualPetShelter();
-        underTest.playWithAll();
-        assertEquals(5, 5);
+        underTest.adoptPet("jupiter");
+        assertEquals(3,underTest.shelter.size());
     }
 }
