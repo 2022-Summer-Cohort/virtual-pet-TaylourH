@@ -1,3 +1,9 @@
 package virtual_pet;
-public class VirtualPetTest {
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class VirtualPetTest {
+
 }
